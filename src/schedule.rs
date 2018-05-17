@@ -1,5 +1,5 @@
 use std::{
-    cmp::{Ordering, PartialOrd}, ops::{Add, Sub}, str::FromStr,
+    cmp::{Ordering, PartialOrd}, fmt, ops::{Add, Sub}, str::FromStr,
 };
 
 #[derive(Clone, Copy, Deserialize, PartialEq)]
@@ -81,6 +81,30 @@ impl PartialOrd for Time {
     }
 }
 
+impl fmt::Display for Time {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        let mut hours = self.hours;
+        let mut pm = false;
+        if hours > 24 {
+            hours -= 24;
+        }
+        if hours > 12 {
+            hours -= 12;
+            pm = true;
+        }
+        if hours == 12 {
+            pm = !pm;
+        }
+        write!(
+            f,
+            "{}:{:02} {}",
+            hours,
+            self.minutes,
+            if pm { "PM" } else { "AM" }
+        )
+    }
+}
+
 #[derive(Clone, Copy, Deserialize)]
 pub enum Day {
     Sunday,
@@ -118,9 +142,15 @@ struct HoursMap {
 }
 
 #[derive(Deserialize, Clone, Copy)]
-struct Hours {
+pub struct Hours {
     start: Time,
     end: Time,
+}
+
+impl fmt::Display for Hours {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        write!(f, "{}–{}", self.start, self.end)
+    }
 }
 
 #[derive(Deserialize)]
@@ -130,12 +160,11 @@ pub struct Restaurant {
 }
 
 impl Restaurant {
-
     pub fn get_list() -> Vec<Self> {
         serde_json::from_str(include_str!("../food.json")).unwrap_or_default()
     }
 
-    fn get_hours(&self, day: Day) -> Option<Hours> {
+    pub fn get_hours(&self, day: Day) -> Option<Hours> {
         match day {
             Day::Sunday => self.hours.sunday,
             Day::Monday => self.hours.monday,

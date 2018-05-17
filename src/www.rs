@@ -34,11 +34,26 @@ fn shuffle<T>(vec: &mut Vec<T>) {
     }
 }
 
+fn today() -> Day {
+    Date::new().get_day().into()
+}
+
 fn start() {
     let mut restaurants = get_viable();
     shuffle(&mut restaurants);
-    let name = restaurants[0].name.to_owned();
-    document().get_element_by_id("place").unwrap().set_text_content(&name);
+    if let Some(restaurant) = restaurants.pop() {
+        if let Some(hours) = restaurant.get_hours(today()) {
+            document()
+                .get_element_by_id("times")
+                .unwrap()
+                .set_text_content(&format!("{}", hours));
+        }
+        let name = restaurant.name;
+        document()
+            .get_element_by_id("place")
+            .unwrap()
+            .set_text_content(&name);
+    }
 }
 
 fn main() {
