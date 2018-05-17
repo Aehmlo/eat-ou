@@ -95,6 +95,9 @@ impl fmt::Display for Time {
         if hours == 12 {
             pm = !pm;
         }
+        if hours == 0 {
+            hours = 12;
+        }
         write!(
             f,
             "{}:{:02} {}",
