@@ -39,9 +39,11 @@ fn main() {
     let mut restaurants = get_viable();
     shuffle(&mut restaurants);
     let name = restaurants[0].name.to_owned();
-    document()
-        .get_element_by_id("place")
-        .unwrap()
-        .set_text_content(&name);
+    document().get_element_by_id("place").unwrap().set_text_content(&name);
+    // We can't currently change the style of an element from within Rust,
+    // so call into JavaScript to unhide the button.
+    js! {
+        document.getElementById("next").style.display = "initial";
+    }
     stdweb::event_loop();
 }

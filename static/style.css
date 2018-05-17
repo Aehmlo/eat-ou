@@ -3,13 +3,16 @@ body {
 	text-align: center;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, Arial, sans-serif; 
 }
-h1, h2 {
+h1, h2, h3 {
 	margin: 0;
 }
 #place {
 	font-weight: 400;
 	font-size: 4em;
-	margin-bottom: 0.25em;
+}
+#times {
+	font-weight: 400;
+	margin-top: 0.4em;
 }
 #next {
 	padding: 0.5em 2em;
@@ -23,6 +26,7 @@ h1, h2 {
 	border-radius: 0.2em;
 	opacity: 0.6;
 	cursor: pointer;
+	margin-top: 0.8em;
 }
 #next:hover {
 	opacity: 1;
