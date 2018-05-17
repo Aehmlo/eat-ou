@@ -10,5 +10,16 @@
 			"friday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 27 } },
 			"saturday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 27 } }
 		}
+	}, {
+		"name" : "Crossroads",
+		"hours" : {
+			"sunday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } },
+			"monday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } },
+			"tuesday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } },
+			"wednesday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } },
+			"thursday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } },
+			"friday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } },
+			"saturday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } }
+		}
 	}
 ]
