@@ -133,7 +133,7 @@ impl From<i32> for Day {
     }
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Clone)]
 struct HoursMap {
     sunday: Option<Hours>,
     monday: Option<Hours>,
@@ -156,7 +156,7 @@ impl fmt::Display for Hours {
     }
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Clone)]
 pub struct Restaurant {
     pub name: String,
     hours: HoursMap,
