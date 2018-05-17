@@ -35,3 +35,10 @@ h1, h2, h3 {
 	background: #eee;
 	border-color: #ccc;
 }
+
+@media (max-width: 450px) {
+	#place {
+		font-size: 3.2em;
+		font-size: 20vw;
+	}
+}
