@@ -1,0 +1,14 @@
+[
+	{
+		"name" : "Raising Cane's",
+		"hours" : {
+			"sunday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 24 } },
+			"monday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 24 } },
+			"tuesday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 24 } },
+			"wednesday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 24 } },
+			"thursday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 27 } },
+			"friday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 27 } },
+			"saturday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 27 } }
+		}
+	}
+]

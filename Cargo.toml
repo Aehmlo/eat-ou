@@ -1,0 +1,21 @@
+[package]
+name = "eat-ou"
+version = "0.1.0"
+authors = ["Alex Hamilton <alex.hamilton@ou.edu>"]
+
+publish = false
+
+[lib]
+name = "eat_ou"
+
+[[bin]]
+name = "eat-ou"
+path = "src/www.rs"
+test = false
+
+[dependencies]
+stdweb = { version = "0.4.5", default-features = false }
+rand = "0.4.2"
+serde = "1.0.55"
+serde_derive = "1.0.55"
+serde_json = "1.0.17"
