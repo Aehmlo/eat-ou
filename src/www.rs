@@ -7,7 +7,7 @@ use eat_ou::*;
 use stdweb::{
     unstable::TryInto,
     web::{
-        document, event::{ClickEvent, IKeyboardEvent, KeyDownEvent}, Date, IEventTarget, INode,
+        document, event::{ClickEvent, IKeyboardEvent, KeyDownEvent}, Date, IElement, IEventTarget, INode,
         INonElementParentNode,
     },
 };
@@ -44,10 +44,10 @@ fn today() -> Day {
 
 fn add_event_listener(restaurants: &mut Vec<Restaurant>) {
     let callback = create_callback(restaurants.clone()); // TODO: Remove clone if possible
-    document()
-        .get_element_by_id("next")
-        .unwrap()
-        .add_event_listener::<ClickEvent, _>(callback);
+    // stdweb doesn't support the options argument to addEventListener, so use JavaScript
+    js! {
+        document.getElementById("next").addEventListener("click", @{callback}, { once: true });
+    }
 }
 
 fn create_callback(mut restaurants: Vec<Restaurant>) -> impl FnMut(ClickEvent) {
@@ -61,7 +61,14 @@ fn next(restaurants: &mut Vec<Restaurant>) {
         suggest(restaurant);
         add_event_listener(restaurants);
     } else {
-        end();
+        let next = document().get_element_by_id("next").unwrap();
+        if next.has_attribute("data-end-game") {
+            next.remove_attribute("data-end-game");
+            start();
+        } else {
+            end();
+            add_event_listener(restaurants);
+        }
     }
 }
 
@@ -82,18 +89,17 @@ fn suggest(restaurant: Restaurant) {
 fn start() {
     let mut restaurants = get_viable();
     shuffle(&mut restaurants);
+    document().get_element_by_id("next_text").unwrap().set_text_content("👎");
     next(&mut restaurants);
-    document().add_event_listener::<KeyDownEvent, _>(move |event| {
-        if event.key() == " " {
-            // stdweb doesn't yet support click(), so we'll use JavaScript
-            js! {
-                document.getElementById("next").click();
-            }
-        }
-    });
 }
 
-fn end() {}
+fn end() {
+    // TODO: Improve accessibility.
+    document().get_element_by_id("next_text").unwrap().set_text_content("🔄");
+    document().get_element_by_id("place").unwrap().set_text_content("🤷‍♀️");
+    document().get_element_by_id("times").unwrap().set_text_content("There aren't any places left to eat. Try again?");
+    document().get_element_by_id("next").unwrap().set_attribute("data-end-game", "1");
+}
 
 fn main() {
     stdweb::initialize();
@@ -103,5 +109,15 @@ fn main() {
         document.getElementById("next").style.display = "initial";
     }
     start();
+
+    document().add_event_listener::<KeyDownEvent, _>(move |event| {
+        if event.key() == " " {
+            // stdweb doesn't yet support click(), so use JavaScript
+            js! {
+                document.getElementById("next").click();
+            }
+        }
+    });
+
     stdweb::event_loop();
 }
