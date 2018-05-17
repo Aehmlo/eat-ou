@@ -1,0 +1,33 @@
+body {
+	font-size: 1.5em;
+	text-align: center;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, Arial, sans-serif; 
+}
+h1, h2 {
+	margin: 0;
+}
+#place {
+	font-weight: 400;
+	font-size: 4em;
+	margin-bottom: 0.25em;
+}
+#next {
+	padding: 0.5em 2em;
+	font-size: 1.2em;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border: 1px solid #aaa;
+	outline: none;
+	background: none;
+	border-radius: 0.2em;
+	opacity: 0.6;
+	cursor: pointer;
+}
+#next:hover {
+	opacity: 1;
+}
+#next:active {
+	background: #eee;
+	border-color: #ccc;
+}
