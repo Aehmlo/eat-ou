@@ -1,7 +1,7 @@
 const CACHE_NAME = "eat-ou-v1";
 const urls = [
   "/",
-  "/style.css",
+  "/css/style.css",
   "/eat-ou.js"
 ];
 
