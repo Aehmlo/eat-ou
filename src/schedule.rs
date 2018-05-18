@@ -184,7 +184,12 @@ pub struct Hours {
 
 impl fmt::Display for Hours {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "{}–{}", self.start, self.end)
+        let (start, end) = (format!("{}", self.start), format!("{}", self.end));
+        if start == end {
+            write!(f, "Open 24 hours")
+        } else {
+            write!(f, "{}–{}", start, end)
+        }
     }
 }
 
