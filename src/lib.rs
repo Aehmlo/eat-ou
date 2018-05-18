@@ -1,4 +1,5 @@
 #![feature(extern_prelude)]
+#![feature(exclusive_range_pattern)]
 
 #[macro_use]
 extern crate serde_derive;

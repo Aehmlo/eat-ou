@@ -1,5 +1,7 @@
+use serde::de::Error as DeserializationError;
+use serde::de::{Deserialize, Deserializer};
 use std::{
-    cmp::{Ordering, PartialOrd}, fmt, ops::{Add, Sub}, str::FromStr,
+    cmp::{Ordering, PartialOrd}, error::Error, fmt, ops::{Add, Sub}, str::FromStr,
 };
 
 #[derive(Clone, Copy, Deserialize, PartialEq)]
@@ -22,20 +24,48 @@ impl Time {
     }
 }
 
+#[derive(Debug)]
+pub enum FromStrError {
+    MissingColon,
+    InsufficientComponents,
+    ExtraComponents,
+    Generic,
+}
+
+impl fmt::Display for FromStrError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        write!(f, "Invalid time string.")
+    }
+}
+
+impl Error for FromStrError {}
+
 impl FromStr for Time {
-    type Err = ();
+    type Err = FromStrError;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         if !s.contains(":") {
-            return Err(());
+            return Err(FromStrError::MissingColon);
         }
-        let parts = s.split(" ")
+        let parts = s.split(":")
             .map(|c| c.parse::<u8>().unwrap_or_default())
             .collect::<Vec<u8>>();
-        Ok(Self {
-            hours: parts[0],
-            minutes: parts[1],
-        })
+        match parts.len() {
+            0..2 => Err(FromStrError::InsufficientComponents),
+            2 => Ok(Self {
+                hours: parts[0],
+                minutes: parts[1],
+            }),
+            _ => Err(FromStrError::ExtraComponents),
+        }
     }
+}
+
+fn deserialize_time<'de, D>(deserializer: D) -> Result<Time, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let s = String::deserialize(deserializer)?;
+    Time::from_str(&s).map_err(DeserializationError::custom)
 }
 
 impl Add<u8> for Time {
@@ -146,7 +176,9 @@ struct HoursMap {
 
 #[derive(Deserialize, Clone, Copy)]
 pub struct Hours {
+    #[serde(deserialize_with = "deserialize_time")]
     start: Time,
+    #[serde(deserialize_with = "deserialize_time")]
     end: Time,
 }
 
