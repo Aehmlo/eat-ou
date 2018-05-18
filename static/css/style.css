@@ -15,6 +15,10 @@ h1, h2, h3 {
 	margin-top: 0.4em;
 }
 #next {
+	margin-top: 0.8em;
+	opacity: 0.6;
+}
+#next, #add {
 	padding: 0.5em 2em;
 	font-size: 1.2em;
 	appearance: none;
@@ -24,9 +28,12 @@ h1, h2, h3 {
 	outline: none;
 	background: none;
 	border-radius: 0.2em;
-	opacity: 0.6;
 	cursor: pointer;
-	margin-top: 0.8em;
+}
+#add {
+	position: fixed;
+	bottom: 0.5em;
+	left: calc(50% - 2.54em);
 }
 #next:hover {
 	opacity: 1;
