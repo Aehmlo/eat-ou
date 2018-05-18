@@ -40,5 +40,309 @@
 			"friday" : { "start" : "7:00", "end" : "15:00" },
 			"sunday" : { "start" : "17:00", "end" : "24:00" }
 		}
+	}, {
+		"name" : "The Laughing Tomato",
+		"hours" : {
+			"monday" : { "start" : "9:00", "end" : "16:00" },
+			"tuesday" : { "start" : "9:00", "end" : "16:00" },
+			"wednesday" : { "start" : "9:00", "end" : "16:00" },
+			"thursday" : { "start" : "9:00", "end" : "16:00" },
+			"friday" : { "start" : "9:00", "end" : "16:00" }
+		}
+	}, {
+		"name" : "O'Henry's",
+		"hours" : {
+			"sunday" : { "start" : "10:30", "end" : "22:00" },
+			"monday" : { "start" : "10:30", "end" : "22:00" },
+			"tuesday" : { "start" : "10:30", "end" : "22:00" },
+			"wednesday" : { "start" : "10:30", "end" : "22:00" },
+			"thursday" : { "start" : "10:30", "end" : "22:00" },
+			"friday" : { "start" : "10:30", "end" : "22:00" },
+			"saturday" : { "start" : "10:30", "end" : "22:00" }
+		}
+	}, {
+		"name" : "Oliver's",
+		"hours" : {
+			"sunday" : { "start" : "8:00", "end" : "22:00" },
+			"monday" : { "start" : "7:00", "end" : "22:00" },
+			"tuesday" : { "start" : "7:00", "end" : "22:00" },
+			"wednesday" : { "start" : "7:00", "end" : "22:00" },
+			"thursday" : { "start" : "7:00", "end" : "22:00" },
+			"friday" : { "start" : "7:00", "end" : "22:00" },
+			"saturday" : { "start" : "8:00", "end" : "22:00" }
+		}
+	}, {
+		"name" : "Qdoba",
+		"hours" : {
+			"sunday" : { "start" : "10:30", "end" : "22:00" },
+			"monday" : { "start" : "10:30", "end" : "22:00" },
+			"tuesday" : { "start" : "10:30", "end" : "22:00" },
+			"wednesday" : { "start" : "10:30", "end" : "22:00" },
+			"thursday" : { "start" : "10:30", "end" : "22:00" },
+			"friday" : { "start" : "10:30", "end" : "22:00" },
+			"saturday" : { "start" : "10:30", "end" : "22:00" }
+		}
+	}, {
+		"name" : "Quiznos",
+		"hours" : {
+			"monday" : { "start" : "10:00", "end" : "18:00" },
+			"tuesday" : { "start" : "10:00", "end" : "18:00" },
+			"wednesday" : { "start" : "10:00", "end" : "18:00" },
+			"thursday" : { "start" : "10:00", "end" : "18:00" },
+			"friday" : { "start" : "10:00", "end" : "17:00" }
+		}
+	}, {
+		"name" : "Ruthie's",
+		"hours" : {
+			"sunday" : { "start" : "11:00", "end" : "22:00" },
+			"monday" : { "start" : "11:00", "end" : "22:00" },
+			"tuesday" : { "start" : "11:00", "end" : "22:00" },
+			"wednesday" : { "start" : "11:00", "end" : "22:00" },
+			"thursday" : { "start" : "11:00", "end" : "22:00" },
+			"friday" : { "start" : "11:00", "end" : "22:00" },
+			"saturday" : { "start" : "11:00", "end" : "22:00" }
+		}
+	}, {
+		"name" : "Taco Mayo",
+		"hours" : {
+			"sunday" : { "start" : "11:00", "end" : "22:00" },
+			"monday" : { "start" : "11:00", "end" : "22:00" },
+			"tuesday" : { "start" : "11:00", "end" : "22:00" },
+			"wednesday" : { "start" : "11:00", "end" : "22:00" },
+			"thursday" : { "start" : "11:00", "end" : "22:00" },
+			"friday" : { "start" : "11:00", "end" : "22:00" },
+			"saturday" : { "start" : "11:00", "end" : "22:00" }
+		}
+	}, {
+		"name" : "The Range",
+		"hours" : {
+			"monday" : { "start" : "10:00", "end" : "18:00" },
+			"tuesday" : { "start" : "10:00", "end" : "18:00" },
+			"wednesday" : { "start" : "10:00", "end" : "18:00" },
+			"thursday" : { "start" : "10:00", "end" : "18:00" },
+			"friday" : { "start" : "10:00", "end" : "18:00" }
+		}
+	}, {
+		"name" : "Fuzzy's Taco Shop",
+		"hours" : {
+			"sunday" : { "start" : "10:00", "end" : "22:00" },
+			"monday" : { "start" : "10:00", "end" : "22:00" },
+			"tuesday" : { "start" : "10:00", "end" : "22:00" },
+			"wednesday" : { "start" : "10:00", "end" : "22:00" },
+			"thursday" : { "start" : "10:00", "end" : "23:00" },
+			"friday" : { "start" : "10:00", "end" : "24:00" },
+			"saturday" : { "start" : "10:00", "end" : "24:00" }
+		}
+	}, {
+		"name" : "Chipotle",
+		"hours" : {
+			"sunday" : { "start" : "10:45", "end" : "22:00" },
+			"monday" : { "start" : "10:45", "end" : "22:00" },
+			"tuesday" : { "start" : "10:45", "end" : "22:00" },
+			"wednesday" : { "start" : "10:45", "end" : "22:00" },
+			"thursday" : { "start" : "10:45", "end" : "22:00" },
+			"friday" : { "start" : "10:45", "end" : "22:00" },
+			"saturday" : { "start" : "10:45", "end" : "22:00" }
+		}
+	}, {
+		"name" : "Victoria's Pasta Shop",
+		"hours" : {
+			"sunday" : { "start" : "11:00", "end" : "21:00" },
+			"monday" : { "start" : "11:00", "end" : "21:00" },
+			"tuesday" : { "start" : "11:00", "end" : "21:00" },
+			"wednesday" : { "start" : "11:00", "end" : "21:30" },
+			"thursday" : { "start" : "11:00", "end" : "21:30" },
+			"friday" : { "start" : "11:00", "end" : "21:30" },
+			"saturday" : { "start" : "11:00", "end" : "21:30" }
+		}
+	}, {
+		"name" : "Volare",
+		"hours" : {
+			"sunday" : { "start" : "11:00", "end" : "23:00" },
+			"monday" : { "start" : "16:00", "end" : "23:00" },
+			"tuesday" : { "start" : "16:00", "end" : "23:00" },
+			"wednesday" : { "start" : "16:00", "end" : "23:00" },
+			"thursday" : { "start" : "16:00", "end" : "26:00" },
+			"friday" : { "start" : "11:00", "end" : "26:00" },
+			"saturday" : { "start" : "11:00", "end" : "26:00" }
+		}
+	}, {
+		"name" : "Coriander Café",
+		"hours" : {
+			"monday" : { "start" : "11:00", "end" : "21:00" },
+			"tuesday" : { "start" : "11:00", "end" : "21:00" },
+			"wednesday" : { "start" : "11:00", "end" : "21:00" },
+			"thursday" : { "start" : "11:00", "end" : "21:00" },
+			"friday" : { "start" : "11:00", "end" : "21:00" },
+			"saturday" : { "start" : "11:00", "end" : "21:00" }
+		}
+	}, {
+		"name" : "Othello's",
+		"hours" : {
+			"sunday" : { "start" : "16:00", "end" : "22:00" },
+			"tuesday" : { "start" : "16:00", "end" : "22:00" },
+			"wednesday" : { "start" : "16:00", "end" : "22:00" },
+			"thursday" : { "start" : "16:00", "end" : "22:00" },
+			"friday" : { "start" : "16:00", "end" : "23:00" },
+			"saturday" : { "start" : "16:00", "end" : "23:00" }
+		}
+	}, {
+		"name" : "Diamond Dawgs",
+		"hours" : {
+			"sunday" : { "start" : "11:00", "end" : "22:00" },
+			"monday" : { "start" : "11:00", "end" : "22:00" },
+			"tuesday" : { "start" : "11:00", "end" : "22:00" },
+			"wednesday" : { "start" : "11:00", "end" : "27:00" },
+			"thursday" : { "start" : "11:00", "end" : "27:00" },
+			"friday" : { "start" : "11:00", "end" : "27:00" },
+			"saturday" : { "start" : "11:00", "end" : "27:00" }
+		}
+	}, {
+		"name" : "Pickleman's Gourmet Cafe",
+		"hours" : {
+			"sunday" : { "start" : "10:00", "end" : "26:00" },
+			"monday" : { "start" : "10:00", "end" : "26:00" },
+			"tuesday" : { "start" : "10:00", "end" : "26:00" },
+			"wednesday" : { "start" : "10:00", "end" : "26:00" },
+			"thursday" : { "start" : "10:00", "end" : "27:00" },
+			"friday" : { "start" : "10:00", "end" : "27:00" },
+			"saturday" : { "start" : "10:00", "end" : "27:00" }
+		}
+	}, {
+		"name" : "Pepe Delgado's",
+		"hours" : {
+			"monday" : { "start" : "11:00", "end" : "21:00" },
+			"tuesday" : { "start" : "11:00", "end" : "21:00" },
+			"wednesday" : { "start" : "11:00", "end" : "21:00" },
+			"thursday" : { "start" : "11:00", "end" : "21:00" },
+			"friday" : { "start" : "11:00", "end" : "21:00" },
+			"saturday" : { "start" : "11:00", "end" : "21:00" }
+		}
+	}, {
+		"name" : "Blackbird Gastropub",
+		"hours" : {
+			"sunday" : { "start" : "11:00", "end" : "26:00" },
+			"monday" : { "start" : "11:00", "end" : "26:00" },
+			"tuesday" : { "start" : "11:00", "end" : "26:00" },
+			"wednesday" : { "start" : "11:00", "end" : "26:00" },
+			"thursday" : { "start" : "11:00", "end" : "26:00" },
+			"friday" : { "start" : "11:00", "end" : "26:00" },
+			"saturday" : { "start" : "11:00", "end" : "26:00" }
+		}
+	}, {
+		"name" : "Hideaway Pizza",
+		"hours" : {
+			"sunday" : { "start" : "11:00", "end" : "21:30" },
+			"monday" : { "start" : "11:00", "end" : "21:30" },
+			"tuesday" : { "start" : "11:00", "end" : "21:30" },
+			"wednesday" : { "start" : "11:00", "end" : "21:30" },
+			"thursday" : { "start" : "11:00", "end" : "21:30" },
+			"friday" : { "start" : "11:00", "end" : "22:30" },
+			"saturday" : { "start" : "11:00", "end" : "22:30" }
+		}
+	}, {
+		"name" : "Coolgreens",
+		"hours" : {
+			"sunday" : { "start" : "11:00", "end" : "20:00" },
+			"monday" : { "start" : "11:00", "end" : "20:00" },
+			"tuesday" : { "start" : "11:00", "end" : "20:00" },
+			"wednesday" : { "start" : "11:00", "end" : "20:00" },
+			"thursday" : { "start" : "11:00", "end" : "20:00" },
+			"friday" : { "start" : "11:00", "end" : "20:00" },
+			"saturday" : { "start" : "11:00", "end" : "20:00" }
+		}
+	}, {
+		"name" : "O'Connell's",
+		"hours" : {
+			"sunday" : { "start" : "11:00", "end" : "26:00" },
+			"monday" : { "start" : "11:00", "end" : "26:00" },
+			"tuesday" : { "start" : "11:00", "end" : "26:00" },
+			"wednesday" : { "start" : "11:00", "end" : "26:00" },
+			"thursday" : { "start" : "11:00", "end" : "26:00" },
+			"friday" : { "start" : "11:00", "end" : "26:00" },
+			"saturday" : { "start" : "11:00", "end" : "26:00" }
+		}
+	}, {
+		"name" : "Louie's Grill & Bar",
+		"hours" : {
+			"sunday" : { "start" : "11:00", "end" : "23:00" },
+			"monday" : { "start" : "11:00", "end" : "23:00" },
+			"tuesday" : { "start" : "11:00", "end" : "23:00" },
+			"wednesday" : { "start" : "11:00", "end" : "23:00" },
+			"thursday" : { "start" : "11:00", "end" : "24:00" },
+			"friday" : { "start" : "11:00", "end" : "24:00" },
+			"saturday" : { "start" : "11:00", "end" : "24:00" }
+		}
+	}, {
+		"name" : "New York Pizza & Pasta",
+		"hours" : {
+			"monday" : { "start" : "10:30", "end" : "23:45" },
+			"tuesday" : { "start" : "10:30", "end" : "23:45" },
+			"wednesday" : { "start" : "10:30", "end" : "23:45" },
+			"thursday" : { "start" : "10:30", "end" : "26:20" },
+			"friday" : { "start" : "10:30", "end" : "26:20" },
+			"saturday" : { "start" : "10:30", "end" : "26:20" }
+		}
+	}, {
+		"name" : "Cafe Saffron",
+		"hours" : {
+			"monday" : { "start" : "10:30", "end" : "20:30" },
+			"tuesday" : { "start" : "10:30", "end" : "20:30" },
+			"wednesday" : { "start" : "10:30", "end" : "20:30" },
+			"thursday" : { "start" : "10:30", "end" : "20:30" },
+			"friday" : { "start" : "10:30", "end" : "20:30" },
+			"saturday" : { "start" : "10:30", "end" : "20:30" }
+		}
+	}, {
+		"name" : "Pad Thai",
+		"hours" : {
+			"sunday" : { "start" : "12:00", "end" : "21:00" },
+			"monday" : { "start" : "11:00", "end" : "22:00" },
+			"tuesday" : { "start" : "11:00", "end" : "22:00" },
+			"wednesday" : { "start" : "11:00", "end" : "22:00" },
+			"thursday" : { "start" : "11:00", "end" : "22:00" },
+			"friday" : { "start" : "11:00", "end" : "22:00" },
+			"saturday" : { "start" : "12:00", "end" : "22:00" }
+		}
+	}, {
+		"name" : "Greek House",
+		"hours" : {
+			"tuesday" : { "start" : "10:30", "end" : "20:30" },
+			"wednesday" : { "start" : "10:30", "end" : "20:30" },
+			"thursday" : { "start" : "10:30", "end" : "20:30" },
+			"friday" : { "start" : "10:30", "end" : "20:30" },
+			"saturday" : { "start" : "10:30", "end" : "20:00" }
+		}
+	}, {
+		"name" : "Pho Winner",
+		"hours" : {
+			"monday" : { "start" : "11:00", "end" : "21:00" },
+			"tuesday" : { "start" : "11:00", "end" : "21:00" },
+			"wednesday" : { "start" : "11:00", "end" : "21:00" },
+			"thursday" : { "start" : "11:00", "end" : "21:00" },
+			"friday" : { "start" : "11:00", "end" : "21:00" },
+			"saturday" : { "start" : "11:00", "end" : "21:00" }
+		}
+	}, {
+		"name" : "Schawarma Vite",
+		"hours" : {
+			"sunday" : { "start" : "12:00", "end" : "20:15" },
+			"monday" : { "start" : "11:00", "end" : "20:15" },
+			"tuesday" : { "start" : "11:00", "end" : "20:15" },
+			"wednesday" : { "start" : "11:00", "end" : "20:15" },
+			"thursday" : { "start" : "11:00", "end" : "20:15" },
+			"friday" : { "start" : "11:00", "end" : "20:15" }
+		}
+	}, {
+		"name" : "Library Bar & Grill",
+		"hours" : {
+			"sunday" : { "start" : "11:00", "end" : "26:00" },
+			"monday" : { "start" : "11:00", "end" : "26:00" },
+			"tuesday" : { "start" : "11:00", "end" : "26:00" },
+			"wednesday" : { "start" : "11:00", "end" : "26:00" },
+			"thursday" : { "start" : "11:00", "end" : "26:00" },
+			"friday" : { "start" : "11:00", "end" : "26:00" },
+			"saturday" : { "start" : "11:00", "end" : "26:00" }
+		}
 	}
 ]
