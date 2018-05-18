@@ -2,7 +2,8 @@ const CACHE_NAME = "eat-ou-v1";
 const urls = [
   "/",
   "/css/style.css",
-  "/eat-ou.js"
+  "/eat-ou.js",
+  "/eat-ou.wasm"
 ];
 
 self.addEventListener("install", e => {
