@@ -5,8 +5,14 @@
 extern crate serde_derive;
 extern crate serde;
 
+#[macro_use]
+extern crate stdweb;
+
 mod schedule;
 pub use schedule::{Day, Restaurant, Time};
+
+/// Manages the application user interface.
+pub mod ui;
 
 extern crate serde_json;
 

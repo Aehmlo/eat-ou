@@ -11,20 +11,33 @@ use stdweb::{
     },
 };
 
-mod ui;
+/// Returns the current day as an instance of `Day`.
+///
+/// Depends on JavaScript APIs for time information.
+fn today() -> Day {
+    Date::new().get_day().into()
+}
 
-fn get_viable() -> Vec<Restaurant> {
+/// Returns the approximate current time as an instance of `Time`.
+///
+/// Depends on JavaScript APIs for time information.
+fn now() -> Time {
     let now = Date::new();
-    let day: Day = now.get_day().into();
-    let (hours, minutes) = (now.get_hours(), now.get_minutes());
-    let time = Time::new(hours, minutes);
+    Time::new(now.get_hours(), now.get_minutes())
+}
+/// Get viable restaurants based on the user's local time.
+///
+/// Depends on JavaScript APIs for time information.
+fn get_viable() -> Vec<Restaurant> {
     Restaurant::get_list()
         .into_iter()
-        .filter(|r| r.is_viable(day, time))
+        .filter(|r| r.is_viable(today(), now()))
         .collect()
 }
 
 /// Performs an in-place naïve Fisher-Yates shuffle.
+///
+/// Depends on JavaScript APIs for random number generation.
 fn shuffle<T>(vec: &mut Vec<T>) {
     let len = vec.len() as u32;
 
@@ -39,25 +52,27 @@ fn shuffle<T>(vec: &mut Vec<T>) {
     }
 }
 
-fn today() -> Day {
-    Date::new().get_day().into()
-}
-
+/// Binds an event listener to the "next" button.
+///
+/// The associated callback forwards the invocation to the `next` function.
+///
+/// Depends on JavaScript APIs to attach a single-use event listener.
 fn add_event_listener(restaurants: &mut Vec<Restaurant>) {
     // TODO: Remove clone if possible
-    let callback = create_callback(restaurants.clone());
+    let mut restaurants = restaurants.clone();
+    let callback = move |_: ClickEvent| {
+        next(&mut restaurants);
+    };
     // stdweb doesn't support the options argument to addEventListener, so use JavaScript
     js! {
         document.getElementById("next").addEventListener("click", @{callback}, { once: true });
     }
 }
 
-fn create_callback(mut restaurants: Vec<Restaurant>) -> impl FnMut(ClickEvent) {
-    move |_| {
-        next(&mut restaurants);
-    }
-}
-
+/// Progresses to the next restaurant recommendation.
+///
+/// If there are no more restaurants, progresses to the end state.
+/// If already in the end state, calls `start` and begins the cycle anew.
 fn next(restaurants: &mut Vec<Restaurant>) {
     if let Some(restaurant) = restaurants.pop() {
         suggest(restaurant);
@@ -73,6 +88,7 @@ fn next(restaurants: &mut Vec<Restaurant>) {
     }
 }
 
+/// Presents a restaurant for the user's consideration.
 fn suggest(restaurant: Restaurant) {
     match restaurant.get_hours(today()) {
         Some(hours) => ui::set_suggestion(&restaurant.name, &format!("{}", hours)).unwrap(),
@@ -80,6 +96,9 @@ fn suggest(restaurant: Restaurant) {
     }
 }
 
+/// Starts the suggestion cycle, generating and shuffling a new list of restaurants.
+///
+/// Calls `next` to begin presenting options.
 fn start() {
     let mut restaurants = get_viable();
     shuffle(&mut restaurants);
@@ -87,10 +106,12 @@ fn start() {
     next(&mut restaurants);
 }
 
+/// Stops the suggestion cycle, presenting the end screen.
 fn end() {
     ui::set_state(ui::State::Terminated).unwrap();
 }
 
+/// Binds an event listener to the spacebar, forwarding keyup events to the next button.
 fn bind_spacebar() {
     document().add_event_listener::<KeyUpEvent, _>(move |event| {
         if event.key() == " " {

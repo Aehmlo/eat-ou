@@ -4,6 +4,7 @@ use std::{
     cmp::{Ordering, PartialOrd}, error::Error, fmt, ops::{Add, Sub}, str::FromStr,
 };
 
+/// Represents a low-resolution point in time, relative to midnight.
 #[derive(Clone, Copy, Deserialize, PartialEq)]
 pub struct Time {
     hours: u8,
@@ -12,6 +13,7 @@ pub struct Time {
 }
 
 impl Time {
+    /// Creates a new `Time` with the given hours and minutes past midnight.
     pub fn new(hours: i32, minutes: i32) -> Self {
         Self {
             hours: hours as u8,
@@ -19,16 +21,24 @@ impl Time {
         }
     }
 
+    /// Creates a new `Time` with the given hours past midnight.
     pub fn with_hours(hours: u8) -> Self {
         Self { hours, minutes: 0 }
     }
 }
 
+/// Represents an error encountered while converting from a string to a `Time`.
 #[derive(Debug)]
 pub enum FromStrError {
+    /// No colon was present in the string.
     MissingColon,
+    /// After splitting on colons, too few (<2) components were present.
     InsufficientComponents,
+    /// After splitting on colons, too many (>2) components were present.
+    ///
+    /// This is likely due to multiple colons.
     ExtraComponents,
+    /// Another error occurred.
     Generic,
 }
 
@@ -138,6 +148,7 @@ impl fmt::Display for Time {
     }
 }
 
+/// Represents a day of the week.
 #[derive(Clone, Copy, Deserialize)]
 pub enum Day {
     Sunday,
@@ -174,6 +185,7 @@ struct HoursMap {
     saturday: Option<Hours>,
 }
 
+/// Represents the times that a business is open.
 #[derive(Deserialize, Clone, Copy)]
 pub struct Hours {
     #[serde(deserialize_with = "deserialize_time")]
@@ -193,6 +205,7 @@ impl fmt::Display for Hours {
     }
 }
 
+/// Encapsulates a restaurant/business and its hours.
 #[derive(Deserialize, Clone)]
 pub struct Restaurant {
     pub name: String,
@@ -200,10 +213,12 @@ pub struct Restaurant {
 }
 
 impl Restaurant {
+    /// Gets the static list of all restaurants.
     pub fn get_list() -> Vec<Self> {
         serde_json::from_str(include_str!("../food.json")).unwrap_or_default()
     }
 
+    /// Gets the hours of this restaurant on the given day.
     pub fn get_hours(&self, day: Day) -> Option<Hours> {
         match day {
             Day::Sunday => self.hours.sunday,
@@ -216,10 +231,13 @@ impl Restaurant {
         }
     }
 
+    /// Returns whether this restaurant is open on the given day.
     pub fn is_open(&self, day: Day) -> bool {
         self.get_hours(day).is_some()
     }
 
+    /// Returns whether this restaurant is a suitable candidate for dining, considering
+    /// travel time and business hours.
     pub fn is_viable(&self, day: Day, time: Time) -> bool {
         match self.get_hours(day) {
             None => false,
