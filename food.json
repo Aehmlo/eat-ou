@@ -2,24 +2,43 @@
 	{
 		"name" : "Raising Cane's",
 		"hours" : {
-			"sunday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 24 } },
-			"monday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 24 } },
-			"tuesday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 24 } },
-			"wednesday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 24 } },
-			"thursday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 27 } },
-			"friday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 27 } },
-			"saturday" : { "start" : { "hours" : 11 }, "end" : { "hours" : 27 } }
+			"sunday" : { "start" : "11:00", "end" : "24:00" },
+			"monday" : { "start" : "11:00", "end" : "24:00" },
+			"tuesday" : { "start" : "11:00", "end" : "24:00" },
+			"wednesday" : { "start" : "11:00", "end" : "24:00" },
+			"thursday" : { "start" : "11:00", "end" : "27:00" },
+			"friday" : { "start" : "11:00", "end" : "27:00" },
+			"saturday" : { "start" : "11:00", "end" : "27:00" }
 		}
 	}, {
 		"name" : "Crossroads",
 		"hours" : {
-			"sunday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } },
-			"monday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } },
-			"tuesday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } },
-			"wednesday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } },
-			"thursday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } },
-			"friday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } },
-			"saturday" : { "start" : { "hours" : 0 }, "end" : { "hours" : 47, "minutes" : 59 } }
+			"sunday" : { "start" : "0:00", "end" : "24:00" },
+			"monday" : { "start" : "0:00", "end" : "24:00" },
+			"tuesday" : { "start" : "0:00", "end" : "24:00" },
+			"wednesday" : { "start" : "0:00", "end" : "24:00" },
+			"thursday" : { "start" : "0:00", "end" : "24:00" },
+			"friday" : { "start" : "0:00", "end" : "24:00" },
+			"saturday" : { "start" : "0:00", "end" : "24:00" }
+		}
+	}, {
+		"name" : "Baja Fresh",
+		"hours" : {
+			"monday" : { "start" : "10:00", "end" : "18:00" },
+			"tuesday" : { "start" : "10:00", "end" : "18:00" },
+			"wednesday" : { "start" : "10:00", "end" : "18:00" },
+			"thursday" : { "start" : "10:00", "end" : "18:00" },
+			"friday" : { "start" : "10:00", "end" : "17:00" }
+		}
+	}, {
+		"name" : "Couch Express",
+		"hours" : {
+			"monday" : { "start" : "7:00", "end" : "24:00" },
+			"tuesday" : { "start" : "7:00", "end" : "24:00" },
+			"wednesday" : { "start" : "7:00", "end" : "24:00" },
+			"thursday" : { "start" : "7:00", "end" : "24:00" },
+			"friday" : { "start" : "7:00", "end" : "15:00" },
+			"sunday" : { "start" : "17:00", "end" : "24:00" }
 		}
 	}
 ]
