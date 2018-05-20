@@ -3,11 +3,15 @@ use stdweb::web::Element as DOMElement;
 use stdweb::web::{document, IElement, INode, INonElementParentNode};
 
 /// Represents the current state of the user interface.
+#[derive(PartialEq)]
 pub enum State {
     /// The user interface is presenting a restaurant for the user's consideration.
     Presenting,
     /// The app has run out of suggestions and is shrugging at the user.
     Terminated,
+    /// The app is showing a list of restaurants to the user, instead of its normal shuffling
+    /// interfface.
+    Tabulating,
 }
 
 /// Represents a uniquely identifiable HTML element.
@@ -124,18 +128,25 @@ pub fn set_state(state: State) -> Result<(), impl Error> {
     let place = Element("place");
     let times = Element("times");
     let next_button = Element("next");
+    let listings = Element("listings");
     match state {
         State::Terminated => {
             next_text.set_glyph("🔄", "Start over")?;
             place.set_glyph("🤷", "Out of suggestions")?;
             times.set_text("There aren't any places left to eat. Try again?")?;
-            next_button.set_data_attribute("terminated", "1")
+            next_button.set_data_attribute("terminated", "1");
+            listings.clear_data_attribute("tabulating")
         }
         State::Presenting => {
             next_text.set_glyph("👎", "Next suggestion")?;
             place.set_text("")?;
             times.set_text("")?;
-            next_button.clear_data_attribute("terminated")
+            next_button.clear_data_attribute("terminated");
+            listings.clear_data_attribute("tabulating")
+        }
+        State::Tabulating => {
+            show_table();
+            listings.set_data_attribute("tabulating", "1")
         }
     }
 }
@@ -144,13 +155,24 @@ pub fn set_state(state: State) -> Result<(), impl Error> {
 ///
 /// The current application state is stored in the DOM.
 pub fn get_state() -> Result<State, impl Error> {
-    Element("next").has_data_attribute("terminated").map(|b| {
-        if b {
-            State::Terminated
-        } else {
-            State::Presenting
-        }
-    })
+    Element("listings")
+        .has_data_attribute("tabulating")
+        .map(|a| {
+            if a {
+                State::Tabulating
+            } else {
+                Element("next")
+                    .has_data_attribute("terminated")
+                    .map(|b| {
+                        if b {
+                            State::Terminated
+                        } else {
+                            State::Presenting
+                        }
+                    })
+                    .unwrap()
+            }
+        })
 }
 
 /// Updates the application user interface to reflect the new suggestion.
@@ -167,5 +189,54 @@ pub fn unhide_button() {
     // so call into JavaScript to unhide the button.
     js! {
         document.getElementById("next").style.display = "initial";
+    }
+}
+
+pub fn tabulate(restaurants: Vec<(String, String, bool)>) {
+    let wrapper = Element("listings").get().unwrap();
+    // Clear the list first.
+    while let Some(ref node) = wrapper.first_child() {
+        wrapper.remove_child(node).unwrap();
+    }
+    // Now, add restaurants to the list.
+    for restaurant in restaurants {
+        let element = document().create_element("div").unwrap();
+        element.set_attribute("class", "listing").unwrap();
+        let name = document().create_element("h2").unwrap();
+        name.set_text_content(&restaurant.0);
+        let hours = document().create_element("h3").unwrap();
+        hours.set_text_content(&restaurant.1);
+        element.append_child(&name);
+        element.append_child(&hours);
+        wrapper.append_child(&element);
+    }
+    set_state(State::Tabulating);
+}
+
+/// Shows the list of open restaurants.
+fn show_table() -> Result<(), GetElementError> {
+    Element("listings")
+        .get()
+        .map(|table| {
+            js! {
+                @{table}.style.display = "block";
+            }
+        })
+        .ok_or(Element("listings").error())
+}
+
+/// Switches from tabulation mode to the last-used mode.
+pub fn stop_tabulation() {
+    hide_table();
+    Element("listings")
+        .clear_data_attribute("tabulating")
+        .unwrap();
+}
+
+/// Hides the list of open restaurants.
+fn hide_table() {
+    let table = Element("listings").get().unwrap();
+    js! {
+        @{table}.style.display = "none";
     }
 }

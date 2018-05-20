@@ -8,6 +8,7 @@ use stdweb::{
     unstable::TryInto,
     web::{
         document, event::{ClickEvent, IKeyboardEvent, KeyUpEvent}, Date, IEventTarget,
+        INonElementParentNode,
     },
 };
 
@@ -52,7 +53,29 @@ fn shuffle<T>(vec: &mut Vec<T>) {
     }
 }
 
-/// Binds an event listener to the "next" button.
+fn tuplify(vec: Vec<Restaurant>) -> Vec<(String, String, bool)> {
+    let mut viable = vec.iter()
+        .filter(|r| r.is_viable(today(), now()))
+        .collect::<Vec<_>>();
+    let mut not = vec.iter()
+        .filter(|r| !r.is_viable(today(), now()))
+        .collect::<Vec<_>>();
+    viable.sort_by_key(|r| r.name.clone());
+    not.sort_by_key(|r| r.name.clone());
+    viable.append(&mut not);
+    let vec = viable;
+    vec.iter()
+        .map(|r| {
+            (
+                r.name.clone(),
+                format!("{}", r.get_hours(today()).unwrap()),
+                r.is_viable(today(), now()),
+            )
+        })
+        .collect::<Vec<_>>()
+}
+
+/// Binds event listener to the "next" button.
 ///
 /// The associated callback forwards the invocation to the `next` function.
 ///
@@ -74,18 +97,27 @@ fn add_event_listener(restaurants: &mut Vec<Restaurant>) {
 /// If there are no more restaurants, progresses to the end state.
 /// If already in the end state, calls `start` and begins the cycle anew.
 fn next(restaurants: &mut Vec<Restaurant>) {
-    if let Some(restaurant) = restaurants.pop() {
-        suggest(restaurant);
-        add_event_listener(restaurants);
-    } else {
-        match ui::get_state() {
-            Ok(ui::State::Terminated) => start(),
-            _ => {
-                end();
+    match ui::get_state() {
+        Ok(ui::State::Presenting) | Ok(ui::State::Terminated) => {
+            if let Some(restaurant) = restaurants.pop() {
+                suggest(restaurant);
                 add_event_listener(restaurants);
+            } else {
+                if ui::get_state().unwrap() == ui::State::Terminated {
+                    start()
+                } else {
+                    end();
+                    add_event_listener(restaurants);
+                }
             }
         }
-    }
+        _ => add_event_listener(restaurants), // Re-bind event listener
+    };
+}
+
+fn list() {
+    let restaurants = get_viable(); // Restaurant::get_list()
+    ui::tabulate(tuplify(restaurants));
 }
 
 /// Presents a restaurant for the user's consideration.
@@ -112,21 +144,47 @@ fn end() {
 }
 
 /// Binds an event listener to the spacebar, forwarding keyup events to the next button.
-fn bind_spacebar() {
-    document().add_event_listener::<KeyUpEvent, _>(move |event| {
-        if event.key() == " " {
-            // stdweb doesn't yet support click(), so use JavaScript
-            js! {
-                document.getElementById("next").click();
-            }
+/// Also binds an event listener to the l key, forwarding keyup events to the list button.
+/// stdweb doesn't yet support click(), so we use JavaScript.
+fn bind_keyboard() {
+    document().add_event_listener::<KeyUpEvent, _>(move |event| match event.key().as_str() {
+        " " => {
+            js! { document.getElementById("next").click(); };
         }
+        "l" => {
+            js! { document.getElementById("list").click(); };
+        }
+        _ => {}
     });
+}
+
+fn toggle_list_mode() {
+    match ui::get_state() {
+        Ok(ui::State::Terminated) | Ok(ui::State::Presenting) => {
+            list();
+        }
+        Ok(ui::State::Tabulating) => {
+            ui::stop_tabulation();
+        }
+        Err(_) => {} // TODO: Handle error
+    };
+}
+
+/// Binds an event listener to the list button, enabling the button to switch view modes.
+fn bind_list() {
+    document()
+        .get_element_by_id("list")
+        .unwrap()
+        .add_event_listener::<ClickEvent, _>(|_| {
+            toggle_list_mode();
+        });
 }
 
 fn main() {
     stdweb::initialize();
     ui::unhide_button();
     start();
-    bind_spacebar();
+    bind_keyboard();
+    bind_list();
     stdweb::event_loop();
 }
