@@ -6,7 +6,7 @@
 	<script src="eat-ou.js" async defer></script>
 	<title>🍴 OU</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, width=device-width">
 	<meta name="author" content="Alex Hamilton" />
 	<meta property="og:locale" content="en_US" />
 	<link rel="canonical" href="https://eat-ou.hmltn.me/" />
@@ -16,9 +16,13 @@
 	<link rel="manifest" href="manifests/manifest.json">
 	<script src="scripts/home-screen.js" async defer></script>
 	<!--script src="scripts/add-service-worker.js" async defer></script-->
+	<meta name="description" content="This web application provides a list of currently-open restaurants and eateries near the University of Oklahoma. It also randomly presents options to facilitate making the tough decision on where to dine.">
+	<script type="application/ld+json">
+	{"url":"https://eat-ou.hmltn.me","author":"name":"Alex Hamilton","name":"Where to eat at OU","@type":"WebSite","@context":"http://schema.org"}
+	</script>
 </head>
 <body>
-	<button id="list"><span role="img" aria-label="Show as list">&#x1F4D6;</span></button>
+	<button id="list"><span role="img" id="list_text"></span></button>
 	<h1 alt="Where do I want to eat?"><span role="img" aria-label="Fork and knife">&#x1F374;</span><span role="img" aria-label="Question mark">&#x2753;</span></h1>
 	<noscript>
 		This web app requires JavaScript to function. Please enable JavaScript in your browser and try again.<br />
@@ -26,8 +30,8 @@
 	</noscript>
 	<h2 id="place"></h2>
 	<h3 id="times"></h3>
-	<button id="next" style="display: none;"><span role="img" id="next_text"></span></button>
-	<button id="add" style="display: none;"><span role="img" aria-label="Add to home screen">📲</span></button>
+	<button id="next"><span role="img" id="next_text"></span></button>
+	<button id="add"><span role="img" aria-label="Add to home screen">📲</span></button>
 	<div id="listings"></div>
 </body>
 </html>

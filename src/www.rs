@@ -182,7 +182,7 @@ fn bind_list() {
 
 fn main() {
     stdweb::initialize();
-    ui::unhide_button();
+    ui::unhide_buttons();
     start();
     bind_keyboard();
     bind_list();

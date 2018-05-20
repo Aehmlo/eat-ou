@@ -125,6 +125,7 @@ impl Error for GetElementError {}
 /// any elements.
 pub fn set_state(state: State) -> Result<(), impl Error> {
     let next_text = Element("next_text");
+    let list_text = Element("list_text");
     let place = Element("place");
     let times = Element("times");
     let next_button = Element("next");
@@ -132,6 +133,7 @@ pub fn set_state(state: State) -> Result<(), impl Error> {
     match state {
         State::Terminated => {
             next_text.set_glyph("🔄", "Start over")?;
+            list_text.set_glyph("📖", "Show as list")?;
             place.set_glyph("🤷", "Out of suggestions")?;
             times.set_text("There aren't any places left to eat. Try again?")?;
             next_button.set_data_attribute("terminated", "1");
@@ -139,6 +141,7 @@ pub fn set_state(state: State) -> Result<(), impl Error> {
         }
         State::Presenting => {
             next_text.set_glyph("👎", "Next suggestion")?;
+            list_text.set_glyph("📖", "Show as list")?;
             place.set_text("")?;
             times.set_text("")?;
             next_button.clear_data_attribute("terminated");
@@ -146,6 +149,7 @@ pub fn set_state(state: State) -> Result<(), impl Error> {
         }
         State::Tabulating => {
             show_table();
+            list_text.set_glyph("🔀", "Exit list mode")?;
             listings.set_data_attribute("tabulating", "1")
         }
     }
@@ -181,14 +185,15 @@ pub fn set_suggestion(name: &str, hours: &str) -> Result<(), impl Error> {
     Element("times").set_text(&hours)
 }
 
-/// Shows the "next" button, which is hidden by default.
+/// Shows the "next" and "list" buttons, which are hidden by default.
 ///
 /// Invoked in the `start()` method, when we know script execution works.
-pub fn unhide_button() {
+pub fn unhide_buttons() {
     // We can't currently change the style of an element with stdnet,
     // so call into JavaScript to unhide the button.
     js! {
         document.getElementById("next").style.display = "initial";
+        document.getElementById("list").style.display = "initial";
     }
 }
 
@@ -239,4 +244,5 @@ fn hide_table() {
     js! {
         @{table}.style.display = "none";
     }
+    Element("list_text").set_glyph("📖", "Show as list").unwrap();
 }
