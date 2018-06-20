@@ -7,8 +7,9 @@ use eat_ou::*;
 use stdweb::{
     unstable::TryInto,
     web::{
-        document, event::{ClickEvent, IKeyboardEvent, KeyUpEvent}, Date, IEventTarget,
-        INonElementParentNode,
+        document,
+        event::{ClickEvent, IKeyboardEvent, KeyUpEvent},
+        Date, IEventTarget, INonElementParentNode,
     },
 };
 
@@ -53,11 +54,13 @@ fn shuffle<T>(vec: &mut Vec<T>) {
     }
 }
 
-fn tuplify(vec: Vec<Restaurant>) -> Vec<(String, String, bool)> {
-    let mut viable = vec.iter()
+fn tuplify(vec: &[Restaurant]) -> Vec<(String, String, bool)> {
+    let mut viable = vec
+        .iter()
         .filter(|r| r.is_viable(today(), now()))
         .collect::<Vec<_>>();
-    let mut not = vec.iter()
+    let mut not = vec
+        .iter()
         .filter(|r| !r.is_viable(today(), now()))
         .collect::<Vec<_>>();
     viable.sort_by_key(|r| r.name.clone());
@@ -100,15 +103,13 @@ fn next(restaurants: &mut Vec<Restaurant>) {
     match ui::get_state() {
         Ok(ui::State::Presenting) | Ok(ui::State::Terminated) => {
             if let Some(restaurant) = restaurants.pop() {
-                suggest(restaurant);
+                suggest(&restaurant);
                 add_event_listener(restaurants);
+            } else if ui::get_state().unwrap() == ui::State::Terminated {
+                start()
             } else {
-                if ui::get_state().unwrap() == ui::State::Terminated {
-                    start()
-                } else {
-                    end();
-                    add_event_listener(restaurants);
-                }
+                end();
+                add_event_listener(restaurants);
             }
         }
         _ => add_event_listener(restaurants), // Re-bind event listener
@@ -117,11 +118,11 @@ fn next(restaurants: &mut Vec<Restaurant>) {
 
 fn list() {
     let restaurants = get_viable(); // Restaurant::get_list()
-    ui::tabulate(tuplify(restaurants));
+    ui::tabulate(tuplify(&restaurants));
 }
 
 /// Presents a restaurant for the user's consideration.
-fn suggest(restaurant: Restaurant) {
+fn suggest(restaurant: &Restaurant) {
     match restaurant.get_hours(today()) {
         Some(hours) => ui::set_suggestion(&restaurant.name, &format!("{}", hours)).unwrap(),
         None => ui::set_suggestion(&restaurant.name, &"").unwrap(),

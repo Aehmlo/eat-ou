@@ -44,7 +44,7 @@ impl Element {
                 e.set_text_content(new);
                 let _ = e.set_attribute("aria-label", alt);
             })
-            .ok_or(self.error())
+            .ok_or_else(|| self.error())
     }
 
     /// Provides an interface with which to set plain text content for a given element.
@@ -57,7 +57,7 @@ impl Element {
                 e.set_text_content(new);
                 e.remove_attribute("aria-label");
             })
-            .ok_or(self.error())
+            .ok_or_else(|| self.error())
     }
 
     /// Set the `data-{name}` attribute of the element to `value`.
@@ -66,21 +66,21 @@ impl Element {
     fn set_data_attribute(&self, name: &str, value: &str) -> Result<(), GetElementError> {
         self.get()
             .map(|e| e.set_attribute(&format!("data-{}", name), value).unwrap())
-            .ok_or(self.error())
+            .ok_or_else(|| self.error())
     }
 
     /// Removes the `data-{name}` attribute from the element.
     fn clear_data_attribute(&self, name: &str) -> Result<(), GetElementError> {
         self.get()
             .map(|e| e.remove_attribute(&format!("data-{}", name)))
-            .ok_or(self.error())
+            .ok_or_else(|| self.error())
     }
 
     /// Returns whether the `data-{name}` attribute exists on the element.
     fn has_data_attribute(&self, name: &str) -> Result<bool, GetElementError> {
         self.get()
             .map(|e| e.has_attribute(&format!("data-{}", name)))
-            .ok_or(self.error())
+            .ok_or_else(|| self.error())
     }
 
     /// Returns the error associated with the inability to fetch this element from the DOM.
@@ -121,8 +121,7 @@ impl Error for GetElementError {}
 /// The current application state is stored in the DOM.
 ///
 /// # Errors
-/// This method returns `Err(impl Error)` if an error occurs while updating (or fetching)
-/// any elements.
+/// This method returns `Err` if an error occurs while updating (or fetching) any elements.
 pub fn set_state(state: State) -> Result<(), impl Error> {
     let next_text = Element("next_text");
     let list_text = Element("list_text");
@@ -136,23 +135,26 @@ pub fn set_state(state: State) -> Result<(), impl Error> {
             list_text.set_glyph("📖", "Show as list")?;
             place.set_glyph("🤷", "Out of suggestions")?;
             times.set_text("There aren't any places left to eat. Try again?")?;
-            next_button.set_data_attribute("terminated", "1");
-            listings.clear_data_attribute("tabulating")
+            next_button.set_data_attribute("terminated", "1")?;
+            listings.clear_data_attribute("tabulating")?;
         }
         State::Presenting => {
             next_text.set_glyph("👎", "Next suggestion")?;
             list_text.set_glyph("📖", "Show as list")?;
             place.set_text("")?;
             times.set_text("")?;
-            next_button.clear_data_attribute("terminated");
-            listings.clear_data_attribute("tabulating")
+            next_button.clear_data_attribute("terminated")?;
+            listings.clear_data_attribute("tabulating")?;
         }
         State::Tabulating => {
-            show_table();
+            show_table()?;
             list_text.set_glyph("🔀", "Exit list mode")?;
-            listings.set_data_attribute("tabulating", "1")
+            listings.set_data_attribute("tabulating", "1")?;
         }
     }
+    let _consuming = state;
+    let ok: Result<(), GetElementError> = Ok(());
+    ok
 }
 
 /// Returns the state of the application user interface.
@@ -215,7 +217,7 @@ pub fn tabulate(restaurants: Vec<(String, String, bool)>) {
         element.append_child(&hours);
         wrapper.append_child(&element);
     }
-    set_state(State::Tabulating);
+    set_state(State::Tabulating).unwrap();
 }
 
 /// Shows the list of open restaurants.
@@ -227,7 +229,7 @@ fn show_table() -> Result<(), GetElementError> {
                 @{table}.style.display = "block";
             }
         })
-        .ok_or(Element("listings").error())
+        .ok_or_else(|| Element("listings").error())
 }
 
 /// Switches from tabulation mode to the last-used mode.
@@ -244,5 +246,7 @@ fn hide_table() {
     js! {
         @{table}.style.display = "none";
     }
-    Element("list_text").set_glyph("📖", "Show as list").unwrap();
+    Element("list_text")
+        .set_glyph("📖", "Show as list")
+        .unwrap();
 }

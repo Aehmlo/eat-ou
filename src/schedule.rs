@@ -1,7 +1,11 @@
 use serde::de::Error as DeserializationError;
 use serde::de::{Deserialize, Deserializer};
 use std::{
-    cmp::{Ordering, PartialOrd}, error::Error, fmt, ops::{Add, Sub}, str::FromStr,
+    cmp::{Ordering, PartialOrd},
+    error::Error,
+    fmt,
+    ops::{Add, Sub},
+    str::FromStr,
 };
 
 /// Represents a low-resolution point in time, relative to midnight.
@@ -53,10 +57,11 @@ impl Error for FromStrError {}
 impl FromStr for Time {
     type Err = FromStrError;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        if !s.contains(":") {
+        if !s.contains(':') {
             return Err(FromStrError::MissingColon);
         }
-        let parts = s.split(":")
+        let parts = s
+            .split(':')
             .map(|c| c.parse::<u8>().unwrap_or_default())
             .collect::<Vec<u8>>();
         match parts.len() {
@@ -90,10 +95,7 @@ impl Add<u8> for Time {
         if hours > 47 {
             hours -= 48;
         }
-        Time {
-            hours: hours,
-            minutes: minutes,
-        }
+        Time { hours, minutes }
     }
 }
 
