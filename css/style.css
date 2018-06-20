@@ -1,0 +1,87 @@
+body {
+	font-size: 1.5em;
+	text-align: center;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, Arial, sans-serif; 
+}
+h1, h2, h3 {
+	margin: 0;
+}
+#place {
+	font-weight: 400;
+	font-size: 4em;
+}
+#times {
+	font-weight: 400;
+	margin-top: 0.4em;
+}
+#list {
+	position: absolute;
+	right: 0.5em;
+	top: 0.25em;
+	padding: 0.25em 1em;
+	z-index: 100;
+}
+#next {
+	margin-top: 0.8em;
+	opacity: 0.6;
+}
+button {
+	padding: 0.5em 2em;
+	font-size: 1.2em;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border: 1px solid #aaa;
+	outline: none;
+	background: none;
+	border-radius: 0.2em;
+	cursor: pointer;
+}
+#add {
+	position: fixed;
+	bottom: 0.5em;
+	left: calc(50% - 2.54em);
+}
+#next:hover {
+	opacity: 1;
+}
+#next:active {
+	background: #eee;
+	border-color: #ccc;
+}
+
+#listings {
+	width: 100%;
+	height: 100%;
+	z-index: 99;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: #fff;
+	display: none;
+}
+
+.listing {
+	padding: 0.5em;
+}
+
+.listing h3 {
+	font-weight: normal;
+}
+
+#list, #next, #add {
+	display: none;
+}
+
+@media (max-width: 450px) {
+	#place {
+		font-size: 3.2em;
+		font-size: 20vw;
+	}
+}
+
+@media (max-width: 750px) {
+	#listings {
+		padding-top: 2.5em;
+	}
+}

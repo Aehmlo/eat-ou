@@ -1,0 +1,37 @@
+<!doctype html>
+<!--html lang="en" manifest="manifests/eat.appcache"-->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<script src="eat-ou.js" async defer></script>
+	<title>🍴 OU</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, width=device-width">
+	<meta name="author" content="Alex Hamilton" />
+	<meta property="og:locale" content="en_US" />
+	<link rel="canonical" href="https://eat-ou.hmltn.me/" />
+	<meta property="og:url" content="https://eat-ou.hmltn.me/" />
+	<meta property="og:title" content="Where to eat at OU" />
+	<meta property="og:type" content="website" />
+	<link rel="manifest" href="manifests/manifest.json">
+	<script src="scripts/home-screen.js" async defer></script>
+	<!--script src="scripts/add-service-worker.js" async defer></script-->
+	<meta name="description" content="This web application provides a list of currently-open restaurants and eateries near the University of Oklahoma. It also randomly presents options to facilitate making the tough decision on where to dine.">
+	<script type="application/ld+json">
+	{"url":"https://eat-ou.hmltn.me","author":"name":"Alex Hamilton","name":"Where to eat at OU","@type":"WebSite","@context":"http://schema.org"}
+	</script>
+</head>
+<body>
+	<button id="list"><span role="img" id="list_text"></span></button>
+	<h1 alt="Where do I want to eat?"><span role="img" aria-label="Fork and knife">&#x1F374;</span><span role="img" aria-label="Question mark">&#x2753;</span></h1>
+	<noscript>
+		This web app requires JavaScript to function. Please enable JavaScript in your browser and try again.<br />
+		If you do not know how, here are <a href="https://www.enable-javascript.com/" target="_blank" rel="nofollow">instructions to enable JavaScript</a>.
+	</noscript>
+	<h2 id="place"></h2>
+	<h3 id="times"></h3>
+	<button id="next"><span role="img" id="next_text"></span></button>
+	<button id="add"><span role="img" aria-label="Add to home screen">📲</span></button>
+	<div id="listings"></div>
+</body>
+</html>
